@@ -1,0 +1,142 @@
+/* ── Palette & type: restrained, neutral, one accent ─────────────────────── */
+:root {
+  --vp-c-brand-1: #2f5d8a;
+  --vp-c-brand-2: #27507a;
+  --vp-c-brand-3: #1f4367;
+  --vp-c-brand-soft: rgba(47, 93, 138, 0.12);
+
+  --vp-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --vp-font-family-mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  /* quieter callouts */
+  --vp-custom-block-tip-border: var(--vp-c-divider);
+  --vp-custom-block-tip-bg: var(--vp-c-bg-soft);
+  --vp-custom-block-tip-text: var(--vp-c-text-1);
+  --vp-custom-block-warning-bg: rgba(214, 160, 41, 0.08);
+  --vp-custom-block-info-bg: var(--vp-c-bg-soft);
+}
+.dark {
+  --vp-c-brand-1: #7fa8d1;
+  --vp-c-brand-2: #93b7da;
+  --vp-c-brand-3: #a9c6e3;
+  --vp-c-brand-soft: rgba(127, 168, 209, 0.16);
+}
+
+/* ── Headings & text rhythm ──────────────────────────────────────────────── */
+.vp-doc h1 { font-size: 1.9rem; letter-spacing: -0.01em; }
+.vp-doc h2 { font-size: 1.35rem; margin-top: 2.6rem; padding-top: 1.2rem; }
+.vp-doc h3 { font-size: 1.08rem; margin-top: 2rem; }
+.vp-doc p, .vp-doc li { line-height: 1.7; }
+.vp-doc table { font-size: 0.92rem; }
+.vp-doc th, .vp-doc td { vertical-align: top; }
+
+/* screenshots: thin border, no shadow */
+.vp-doc img {
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+  display: block;
+  margin: 1rem 0;
+}
+.vp-doc img + em, .vp-doc .caption {
+  display: block;
+  margin-top: -0.5rem;
+  margin-bottom: 1.25rem;
+  color: var(--vp-c-text-2);
+  font-size: 0.85rem;
+  font-style: normal;
+}
+
+/* ── Numbered steps: ::: steps ... ::: ────────────────────────────────────── */
+.vp-doc .steps { margin: 1rem 0 1.25rem; }
+.vp-doc .steps > ol {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  counter-reset: step;
+}
+.vp-doc .steps > ol > li {
+  position: relative;
+  padding-left: 2.6rem;
+  margin: 0;
+  padding-bottom: 0.9rem;
+  counter-increment: step;
+}
+.vp-doc .steps > ol > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--vp-c-brand-1);
+  color: var(--vp-c-brand-1);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  text-align: center;
+  background: var(--vp-c-bg);
+}
+.vp-doc .steps > ol > li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 0.78rem;
+  top: 1.85rem;
+  bottom: 0;
+  width: 1px;
+  background: var(--vp-c-divider);
+}
+.vp-doc .steps > ol > li > p { margin: 0 0 0.35rem; }
+.vp-doc .steps > ol > li ul { margin: 0.25rem 0 0.25rem; }
+.vp-doc .steps > ol > li img { margin: 0.6rem 0 0.4rem; max-width: 640px; }
+
+/* ── Video block ─────────────────────────────────────────────────────────── */
+.step-video { margin: 1.25rem 0 1.75rem; }
+.step-video video {
+  width: 100%;
+  display: block;
+  border-radius: 6px;
+  border: 1px solid var(--vp-c-divider);
+  background: #000;
+}
+.step-video__frame {
+  position: relative;
+  padding-top: 56.25%;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--vp-c-divider);
+  background: #000;
+}
+.step-video__frame iframe {
+  position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+}
+.step-video figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--vp-c-text-2);
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.step-video__title::before {
+  content: '▶';
+  font-size: 0.65rem;
+  margin-right: 0.4rem;
+  position: relative;
+  top: -1px;
+}
+
+/* ── Home page: a plain list of tools instead of a hero ──────────────────── */
+.home-page .vp-doc h1 { margin-bottom: 0.4rem; }
+.home-page .vp-doc > div > p:first-of-type { color: var(--vp-c-text-2); font-size: 1.02rem; }
+.home-page .vp-doc h2 {
+  border-top: 1px solid var(--vp-c-divider);
+  margin-top: 1.6rem;
+  padding-top: 1.4rem;
+  font-size: 1.25rem;
+}
+.home-page .vp-doc h2 a { text-decoration: none; }
+.home-page .vp-doc h2 .header-anchor { display: none; }
+.home-page .vp-doc .meta { color: var(--vp-c-text-3); font-size: 0.85rem; margin-top: -0.4rem; }
+.home-page .VPDocFooter { display: none; }
