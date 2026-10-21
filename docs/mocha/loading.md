@@ -1,55 +1,49 @@
 # Loading data
 
-There are three ways to get volumes (and optionally a centerline) into the *3D Tracing* tab. They differ only in what is on disk beforehand; tracing works the same afterwards.
+| Menu | Use it for |
+| --- | --- |
+| **File → Open DICOMs** | A DICOM study — converts to NIfTI, registers, and opens it (**recommended**) |
+| **File → Open Folder** | A folder of `.nii.gz` sequences that were already converted / registered, with an optional `centerline.yaml` |
+| **File → Open** | One image (NIfTI / DICOM / TIF), or one centerline file (`.yaml` / `.yml` / `.swc`) |
 
-| # | Menu | What you need | After loading |
-| --- | --- | --- | --- |
-| 1 | **File → Open** | One `.nii` / `.nii.gz`, **or** a single DICOM series, **or** a centerline (`.yaml` / `.yml` / `.swc`) | One entry in *Display*; a centerline file attaches to the current volume |
-| 2 | **File → Open Folder** | Several `.nii` / `.nii.gz` in one folder; `reg_*_to_*.txt` from registration (recommended for alignment); optional `centerline.yaml` | *Select Images to Load* dialog → pick sequences and the initial display; switch with *Display* |
-| 3 | **File → Open DICOMs** | A valid DICOM directory and a writable working directory | Series are converted to NIfTI and (usually) registered; *Display* lists the sequences in the working directory |
+**File → Resume Workflow…** reopens an earlier *Open DICOMs* session.
 
-**File → Resume Workflow…** reopens a previous *Open DICOMs* session; it is not a separate data type.
-
-## Single image
+## From a DICOM study {#dicom}
 
 ::: steps
-1. **File → Open**.
-2. Select the image: NIfTI, DICOM or TIF.
-3. Optionally open a centerline file (`.yaml`, `.yml`, `.swc`) the same way — it is attached to the current volume.
+1. **File → Open DICOMs**.
+2. Choose the **working directory** (where the `.nii.gz` files go), then the **DICOM directory**.
+3. **Select Sequences**: if series are missing, lower *Slice threshold* and click **Update**. Tick the series to import (series with warnings start unticked) and edit *New Name* if needed. **OK** — the series are converted.
+4. **Select Sequences for Registration**: choose the **Reference** (TOF-MRA if available) and tick the **Moving** sequences. **OK**.
+5. **Set Initial Parameters**: a point is already placed in each sequence. Move it only if the sequences look misaligned (**Go to Point** jumps to its slice). **OK** — registration runs.
+6. **Select Images to Load**: tick the sequences and the one to show first. They open in *3D Tracing*; switch between them with **Display:**.
 :::
 
-<StepVideo src="" title="Open a single image and a centerline" />
+<StepVideo src="/videos/mocha/open-dicoms.mp4" title="Open DICOMs → working directory → DICOM directory → Select Sequences" loop />
+
+<StepVideo src="/videos/mocha/registration.mp4" title="Reference / Moving → initial points → registration → switch Display" loop />
+
+::: details Select Sequences dialog
+![Select Sequences dialog](/images/mocha/select-sequences.png)
+
+- **Slice threshold ≥** (default 20) hides series with fewer slices; **Update** re-scans. **Recursive scan** also searches sub-folders.
+- First column: import yes / no. *New Name* is the output file name.
+- **Sequence Preview** shows the selected series.
+- **Save DICOM metadata as YAML** — next to the NIfTI, or a custom path. **Anonymize patient identifiers** is optional.
+:::
 
 ## Multi-sequence folder
 
 ::: steps
-1. **File → Open Folder** and choose the folder that holds the `.nii.gz` files.
-2. In *Select Images to Load*, tick the sequences you want and choose the one to display first.
-3. Switch between sequences with the **Display:** dropdown in the control column.
+1. **File → Open Folder** → the folder with the `.nii.gz` files. A `centerline.yaml` in the folder is loaded too.
+2. Tick the sequences and choose the one to show first.
+3. Switch with **Display:**.
 :::
 
-<StepVideo src="" title="Open a folder with several sequences" />
-
-::: warning Keep one reference space
-*Open Folder* expects a single consistent `reg_*_to_*` reference space. A folder with conflicting transforms may fail to load. Run [Registration](./preprocess#registration) once on the folder to produce matching transforms.
+::: warning Before switching Display
+**Commit to 3D** the current draft first. The folder must have one consistent `reg_*_to_*` reference space — run [Registration](./preprocess#registration) if it does not.
 :::
 
-::: tip Before switching Display
-Finish the current MPR draft and **Commit to 3D** before changing *Display*. An unfinished draft can become inconsistent with the new volume. After finishing one vessel in a multi-sequence folder, the recommended order is **Cross → Contour Labeling → switch Display**.
-:::
+## Single file
 
-## From a DICOM study
-
-::: steps
-1. **File → Open DICOMs**.
-2. Choose a **working directory** (output) and the **DICOM directory**.
-3. In *Select Sequences*, tick the series to import and rename them if needed — see [Preprocess](./preprocess#select-sequences-dialog) for the dialog.
-4. Confirm. The series are converted to `.nii.gz`, a `.workflow_state.yaml` and the *Workflow Banner* are written, and the registration dialogs follow.
-5. Open the working directory in *3D Tracing* (it is usually opened for you).
-:::
-
-<StepVideo src="" title="Open a DICOM study end-to-end" />
-
-::: tip
-`.workflow_state.yaml` and the Workflow Banner are only created through **File → Open DICOMs**. *Preprocess → MV: Open Raw Data* does the same conversion without tracking a workflow session.
-:::
+**File → Open** → the file. Opening a file starts a new case: a centerline opened this way is shown **without** an image. To see an image with its centerline, put `centerline.yaml` in the image folder and use **Open Folder**.

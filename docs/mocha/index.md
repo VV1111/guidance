@@ -1,50 +1,62 @@
 # MOCHA+
 
-MOCHA+ (version 3.0.5) is the lab's tool for tracing and editing vessel centerlines on 3D medical images (TOF-MRA, vessel wall imaging, CTA). It also converts DICOM series to NIfTI, registers sequences to one reference space, and compares two centerline files.
+MOCHA traces and edits vessel centerlines on 3D images (TOF-MRA, vessel wall imaging, CTA), and labels lumen / wall contours on the cross-sections.
+
+## Quick look
+
+<StepVideo src="/videos/mocha/quick-look.mp4" title="Open DICOMs → register → trace → cross-sections → save, at 6× speed" loop />
+
+## Typical workflow
+
+| | Step | Where | Page |
+| --- | --- | --- | --- |
+| 1 | Convert DICOM to NIfTI and register the sequences | **File → Open DICOMs** | [Loading data](./loading#dicom) |
+| 2 | Trace a centerline — on the slices with auto-fit, or by clicking in 3D | **Draw points: 2D** / **3D** | [2D MPR editing](./2d-editing) · [3D tracing](./3d-tracing) |
+| 3 | Correct it — straightened view, Anchor Insert | **Existing** | [2D MPR editing](./2d-editing#edit) |
+| 4 | Draw lumen and outer wall on the cross-sections | **Cross** → *Contour Labeling* | [Contour labeling](./contour-labeling) |
+| 5 | Save the centerline | `Ctrl` + `S` | [below](#save) |
 
 ![MOCHA+ main interface: control column on the left, 3D view in the centre, MPR views around it](/images/mocha/main-interface.png)
-*Main interface — 3D Tracing tab.*
+*3D Tracing tab: control column (left), straightened view, 3D / MPR views, vessel labels (right).*
 
 ## Core idea: 3D is the result, 2D is the draft
 
-Everything in MOCHA+ follows one two-layer rule:
-
-| Layer | Role | When edits take effect |
+| Layer | Role | Edits take effect |
 | --- | --- | --- |
-| **3D view** | The final centerline (ground truth) | Immediately |
-| **2D MPR views** | A temporary editing workspace (draft) | Only after you click **Commit to 3D** |
+| **3D view** | The final centerline | Immediately |
+| **2D MPR views** | A draft workspace | Only after **Commit to 3D** |
 
-- Edits made in 2D never touch the 3D centerline until you commit them.
-- Edits made in 3D are applied at once, and in *Edit* mode they are synced back into the 2D draft.
+## Save {#save}
 
-## Interface
+`Ctrl` + `S` (or **File → Save**). If the centerline is new, choose a name, e.g. `centerline.yaml` → **Save**; if it was opened from a `.yaml`, that file is overwritten. The path appears as **Centerline:** above the views.
 
-- **3D view** — the volume with the centerline tree. Click a segment to select it (it turns white).
-- **Axial / Coronal / Sagittal MPR views** — slice views with a slider and arrow buttons for the slice index.
-- **Straightened view** — the selected vessel shown flattened, used for precise navigation.
-- **Control column** (left) — display options, tracing mode, draft tools, *Generate* and *Commit to 3D*. See [3D tracing](./3d-tracing#control-column) for a full list.
-- **Tabs** — *3D Tracing* (this guide) and *Contour Labeling* (cross-sections).
+In the *Contour Labeling* tab, `Ctrl` + `S` saves the contours instead — see [Contour labeling](./contour-labeling).
 
-### Keyboard shortcuts
+<StepVideo src="/videos/mocha/save-centerline.mp4" title="Ctrl+S → centerline.yaml" loop />
+
+## Keyboard shortcuts (3D Tracing)
 
 | Key | Action |
 | --- | --- |
-| `M` | Maximise the current view |
-| `G` | Return to the grid layout |
-| Scroll | Change slice |
-| `Shift` / `Ctrl` + scroll | Zoom |
-| `Delete` / `Backspace` | Delete the selected point |
+| `M` / `G` | Maximise the current view / back to the grid |
+| Scroll | Change slice (MPR views); zoom (3D view) |
+| `Shift` / `Ctrl` + scroll | Zoom (MPR views) |
+| `Ctrl` + `A` / `Ctrl` + `Shift` + `A` | Draw points 3D / 2D on–off |
+| `Q` / `E` | Previous / next key point |
+| `Delete` / `Backspace` | Delete the selected point (or the selected segment in 3D) |
 | `Ctrl` + `Z` | Undo the last draft edit |
 | `Ctrl` + `S` | Save the centerline |
 
-## Where to go next
-
-| I want to… | Read |
+::: details More shortcuts
+| Key | Action |
 | --- | --- |
-| Open a single image, a folder of sequences, or a DICOM study | [Loading data](./loading) |
-| Convert DICOM to NIfTI and register sequences first | [Preprocess](./preprocess) |
-| Trace a vessel by clicking directly in the 3D view | [3D tracing](./3d-tracing) |
-| Draft or fix a centerline in the 2D slice views, with auto-fit | [2D MPR editing](./2d-editing) |
-| Compare two centerline files (e.g. AI vs reviewer) | [Compare centerlines](./compare) |
+| Right-click (3D) | Delete the key point under the cursor |
+| `Ctrl` + click / `Ctrl` + drag (3D) | Add to selection / lasso select |
+| `Shift` + `A` | Turn the hovered dense point into a key point |
+| `Shift` + `S` | Split the segment at the hovered point |
+| `Shift` + `V` / `Ctrl` + `Shift` + `V` | Hide / show all centerlines / the volume |
+| `Shift` + `Q` / `Shift` + `E` | Rotate the straightened view ±5° |
+| `Ctrl` + `D` | Switch the *Select* hover priority |
 
-<StepVideo src="" title="MOCHA+ in two minutes — interface tour" />
+Shortcuts can be changed in **Settings → Hotkeys**.
+:::

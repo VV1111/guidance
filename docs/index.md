@@ -17,18 +17,18 @@ Operating guides for the tools developed in our lab. Every guide has the same sh
 
 ## [MOCHA+](./mocha/)
 
-Vessel centerline tracing and editing. Trace directly on the 3D volume, or draft in 2D MPR views and let the auto-fit refine the path. Also covers DICOM → NIfTI preprocessing, inter-sequence registration, and the centerline comparison tool.
+Vessel centerline tracing and editing. Open a DICOM study, trace on the slices with auto-fit or directly in 3D, then label lumen and wall on the cross-sections. Also covers registration and the centerline comparison tool.
 
-<p class="meta">Version 3.0.5 · 6 pages</p>
+<p class="meta"> · 7 pages</p>
 
 ## [dicom2nifti](./dicom2nifti/)
 
-Converts DICOM folders to NIfTI (`.nii.gz`). Three modes: batch-convert every subfolder, convert one case folder with all its series, or pick individual series.
+Converts DICOM folders to NIfTI (`.nii.gz`). Pick folders, search them for DICOM series, choose where each file goes, generate.
 
-<p class="meta">Version 2 · 1 page</p>
+<p class="meta">Version 1.1.0 · 1 page</p>
 
-## [ITK-SNAP DLS (nn Intracranial)](./itksnap-dls/)
+## [ITK-SNAP DLS (nnInteractive)](./itksnap-dls/)
 
-AI-assisted segmentation of intracranial structures inside ITK-SNAP, powered by a deep-learning server running on the lab GPU machine. Start the server, connect ITK-SNAP, load the label set, segment with one click.
+AI-assisted segmentation of intracranial arteries and plaque in ITK-SNAP, with nnInteractive running on the lab GPU server. Paint the plaque ROI, outline the artery, let the AI fill it in 3D.
 
 <p class="meta">ITK-SNAP 4.4 · 1 page</p>

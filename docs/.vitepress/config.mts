@@ -49,6 +49,7 @@ export default defineConfig({
             { text: 'Preprocess: DICOM → NIfTI & registration', link: '/mocha/preprocess' },
             { text: '3D tracing', link: '/mocha/3d-tracing' },
             { text: '2D MPR editing', link: '/mocha/2d-editing' },
+            { text: 'Contour labeling', link: '/mocha/contour-labeling' },
             { text: 'Compare centerlines', link: '/mocha/compare' },
           ],
         },

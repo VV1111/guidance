@@ -1,77 +1,46 @@
 # Compare centerlines
 
-The comparison tool (*Centerline Comparison — AI/Reviewer*, MOCHA+ 3.0.4) puts two centerline files side by side and shows where they differ. Open it from **Tracing → Comparison**.
+Puts two centerline files side by side (e.g. AI result vs reviewer) and shows where they differ. Open it from **Tracing → Comparison** — window *Centerline Comparison — AICafe/Reviewer vs Reviewer*.
 
 ![Comparison window: Source, Reviewer and Difference panels, legend on the right](/images/mocha/compare-layout.png)
 
-## Basic workflow (visualisation only)
+## Compare two files
 
 ::: steps
-1. **Browse** a *Source* file and a *Reviewer* file (`.swc` or `.yaml`).
-2. Click **Load**.
-3. Click **Compare**.
-4. Inspect the *Source*, *Reviewer* and *Difference* panels.
+1. **Browse Source** and **Browse Reviewer** — `.swc`, `.yaml` or `.yml`.
+2. **Load**, then **Compare**.
+3. Inspect the *Source*, *Reviewer* and *Difference* panels. Selecting a vessel in one panel highlights it in all; **Sync camera** (on by default) rotates them together.
 :::
 
 ![Load, then Compare](/images/mocha/compare-workflow.png)
 
-<StepVideo src="" title="Load two centerlines and compare them" />
-
-### Linked interaction
-
-- Selecting a vessel (artery / segment) in **any** panel highlights the same vessel in **all** panels.
-- Enable **Sync camera** to rotate and zoom all panels together.
-
-### Two-layer colouring in the Difference panel
-
-**Layer 1 — difference categories.** After *Compare*, colours follow these categories only:
-
-| Category | Meaning |
+| Colour category | Meaning |
 | --- | --- |
-| Matched | Present in both files |
-| Unmatched Label | Present in both, but labelled differently |
+| Matched | In both files |
+| Unmatched label | In both, labelled differently |
 | Unmatched Source | Only in *Source* |
 | Unmatched Reviewer | Only in *Reviewer* |
 
-*Diff: unmatched only* belongs to this layer.
+*Diff: unmatched only* hides the matched part. Ticking vessel types in the legend recolours the segments by vessel type and dims the others; changing a category option switches back to category colours.
 
-**Layer 2 — vessel-type filter (legend).** Toggling vessel checkboxes in the legend keeps selected vessels at full brightness, dims unselected ones, and recolours the same segments by vessel type.
+## Metrics for one vessel
 
-**Priority rule.** Changing a Layer 1 option restores category-only colouring. Changing a Layer 2 checkbox overlays vessel colouring on the current segments.
-
-## Metrics
+::: steps
+1. **Load** (and **Compare** if you use the Difference panel).
+2. **Metrics mode**:
+   - **Loaded graph (memory radii)** (default) — uses the radii in the files. Fastest.
+   - **TIF mask (loaded centerlines)** — recomputes radii from a mask: set **Mask TIF:** (**Browse**), and if needed **TIF keypoint:** / **TIF ref YAML:**.
+3. Set **Spacing (mm):**, or **Load spacing XML**.
+4. Pick the vessel: click it in 3D, or choose it in the panel's dropdown (default *(3D selection)*).
+5. **Compute**.
+:::
 
 ::: warning Volume needs a radius
-Volume is computed only if the data carries radii (e.g. YAML / SWC with radius). Without a radius, volume is **not** computed.
+Volume is only computed if the data carries radii.
 :::
 
-### Mode 1 — Loaded graph (default)
-
-Uses the radii from the SWC / YAML file or the viewer defaults. No mask needed; fastest.
-
+::: details Metrics mode screenshots
 ![Metrics mode: Loaded graph](/images/mocha/compare-metrics-loaded.png)
 
-::: steps
-1. **Load** (and **Compare** if you use the Difference panel).
-2. Keep **Metrics mode = Loaded graph**.
-3. Optionally set **Spacing (mm)** or load an XML with the spacing.
-4. Select a vessel in a panel — either click a segment in 3D, or pick a label from the **Vessel** dropdown.
-5. Click **Compute**.
-:::
-
-### Mode 2 — TIF mask
-
-Radii are recomputed from a segmentation mask. More accurate, but needs the mask as extra input.
-
 ![Metrics mode: TIF mask](/images/mocha/compare-metrics-tif.png)
-
-::: steps
-1. **Load** (and **Compare** if you use the Difference panel).
-2. Set **Metrics mode = TIF mask**.
-3. **Select Mask TIF** (the `.whole.tif` file).
-4. Set the spacing as above.
-5. Configure the TIF key point if needed.
-6. Select a vessel, then click **Compute**.
 :::
-
-<StepVideo src="" title="Compute metrics for one vessel" />

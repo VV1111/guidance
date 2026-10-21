@@ -7,6 +7,9 @@
  *   - an absolute site path  → "/videos/x.mp4" (file under docs/public/videos/)
  *   - a full URL             → used as-is (mp4 on any host, or a YouTube link)
  * Renders nothing while src is empty, so placeholders can stay in the Markdown.
+ *
+ * <StepVideo src="/videos/itksnap-dls/draw-roi.mp4" title="..." loop />
+ *   loop → plays like a GIF: autoplay, muted, looping (controls stay available).
  */
 import { computed } from 'vue'
 import { useData, withBase } from 'vitepress'
@@ -16,6 +19,7 @@ const props = defineProps<{
   title?: string
   poster?: string
   note?: string
+  loop?: boolean
 }>()
 
 const { theme } = useData()
@@ -55,7 +59,10 @@ const youtubeId = computed(() => {
       :src="url"
       :poster="posterUrl || undefined"
       controls
-      preload="metadata"
+      :preload="loop ? 'auto' : 'metadata'"
+      :autoplay="loop"
+      :loop="loop"
+      :muted="loop"
       playsinline
     ></video>
     <figcaption v-if="title || note">

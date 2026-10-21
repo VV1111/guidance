@@ -1,83 +1,98 @@
 # dicom2nifti
 
-A small desktop tool that converts DICOM folders to NIfTI (`.nii.gz`). It scans a folder tree, lets you choose what to convert, and shows progress and a log while it runs.
+Converts DICOM folders to NIfTI (`.nii.gz`). Program: **`Dicom2Nifti V1.1.0.exe`** — double-click to start, nothing to install.
 
-![Main window](/images/dicom2nifti/main-window.png)
-*The main window: input DICOM folder, output folder, output filename, progress and log.*
+## Quick look
 
-## Select the DICOM folder
+<StepVideo src="/videos/dicom2nifti/quick-look.mp4" title="The whole workflow at 4× speed" loop />
 
-::: steps
-1. Click **Select DICOM Folder…** and choose a folder containing DICOM data.
-2. The program fills in the folder path, proposes an output filename from the folder name, and scans the folder and its subfolders (up to 4 levels) for DICOM series. If nothing is found, a warning appears.
-3. A **Choose Conversion Mode** dialog opens. Only the modes that make sense for this folder are enabled.
-:::
+**Pick folders → Search → Set where the files go → Generate.**
 
-![Choose conversion mode](/images/dicom2nifti/mode-dialog-subfolders.png)
+![dicom2nifti main window](/images/dicom2nifti/main-window.png)
+*Top: folder picking. Middle: one row per DICOM series. Bottom: log. Drag the borders to resize.*
 
-<StepVideo src="" title="Select a folder and pick a mode" />
-
-Which mode to pick:
-
-| Mode | Pick it when | Pros | Cons |
-| --- | --- | --- | --- |
-| **A — Convert subfolders (batch)** | You don't know the folder's internal structure; a root may hold several cases, time points or sequences in different subfolders | Flexible per-batch control over output paths and names | The initial scan can take a while |
-| **B — Convert current folder (all series)** | The folder is one case and you want every series it contains | Fastest | Cannot exclude individual series |
-| **C — Batch select (partial series)** | The folder is one case with several series and you only need some of them | Most control; avoids unneeded exports | Needs manual review; slower when there are many series |
-
-## Mode A — Convert subfolders (batch)
-
-Detects every subfolder that contains DICOM and converts each one to a NIfTI file.
-
-![A root folder with several series subfolders](/images/dicom2nifti/folder-structure.png)
-*Example: folder P414 contains subfolders CTA, S101, S103, …*
-
-### A1. Confirm and edit the batch
-
-After choosing this mode, **Confirm Subfolder Batch Conversion** lists all subfolders that contain DICOM.
-
-![Confirm Subfolder Batch Conversion](/images/dicom2nifti/batch-confirm.png)
+## 1. Pick the folders {#folders}
 
 ::: steps
-1. Tick or untick rows to include or exclude a subfolder.
-2. Set the output folder per row, or type one folder at the top and click **Apply to all**.
-3. Edit the output filename per row if you like.
-4. Click **OK**.
+1. **Browse folder…** → choose the top folder of your data, e.g. `…\original`.
+2. Select folders in the tree (**Ctrl**/**Shift**-click for several) and click **Add ▶**.
+3. Keep the folders you want **ticked** in **2. Folder list**.
 :::
 
-### A2. Run, pause, stop
+You can add a patient folder (every DICOM series below it is found) or single series folders.
+
+<StepVideo src="/videos/dicom2nifti/pick-folders.mp4" title="Browse → select → Add" loop />
+
+::: details More options
+| To… | Do this |
+| --- | --- |
+| Open more tree levels at once | **Expand tree** (set *levels*) |
+| Add the top folder itself | **Add root folder to list** |
+| Remove folders | Tick them and click **◀ Remove** |
+| Find a folder in a long list | Type in **Filter folders…** |
+:::
+
+## 2. Search {#search}
+
+Click **Search**. Each DICOM series found becomes one row, named `Modality_SeriesDescription` (e.g. `MR_AX_T2`) and saved next to its DICOM by default.
+
+<StepVideo src="/videos/dicom2nifti/search.mp4" title="Search" loop />
+
+::: details Search options
+| Option | Meaning |
+| --- | --- |
+| **Max depth** | How many folder levels below each listed folder are searched (default 4). Use `0` if you listed the series folders themselves. |
+| **SNAP auto-suffix** | Names SNAP reconstructions `_SNAP` / `_I2` / `_I1` automatically. Leave it on. |
+:::
+
+## 3. Set where the files go {#save}
+
+Typical case: all files into one folder, one sub-folder per patient.
 
 ::: steps
-1. The progress bar appears and the log updates in real time.
-2. Use **Pause** / **Resume** / **Stop** as needed.
-3. A *Done* dialog lists the generated files.
+1. Next to **Apply save path to all**, **Browse…** the target folder (e.g. `…\transformed`) and click **Apply to all**.
+2. Type a **Sub-folder** for each row (double-click the cell), e.g. the patient ID `retro_0602_mri`. For many rows at once: select them, click **New folder…**.
+3. Check the **Output file** column, then click **Create checked now** under **New folders**.
 :::
 
-![Conversion finished](/images/dicom2nifti/batch-done.png)
+::: tip "Name clash" after Apply to all is normal
+Different patients have series with the same name, so they would overwrite each other in one folder. The sub-folders fix it.
+:::
 
-<StepVideo src="" title="Batch-convert all subfolders" />
+<StepVideo src="/videos/dicom2nifti/set-save-path.mp4" title="Save path → sub-folder per patient → create folders" loop />
 
-## Mode B — Convert current folder (all series)
+::: details Table columns and other situations
+| Column | What it is |
+| --- | --- |
+| **Save path** | Folder the file is written to |
+| **Sub-folder** | Extra folder(s) after the save path; `A\x` makes a folder inside a folder |
+| **Output name** | File name, without extension |
+| **Suffix** | Added to the end of the name, e.g. `_pre` (**Name suffix → Apply suffix**: selected rows, or all if none selected) |
+| **Output file** | Preview of the final path. *(new folder)* in yellow = the folder does not exist yet |
 
-![Choose conversion mode with the current-folder option](/images/dicom2nifti/mode-dialog-current.png)
+| Situation | What to do |
+| --- | --- |
+| Keep files next to their DICOM | Do nothing — that is the default. |
+| Change one row only | Double-click its cell and type (also after **Apply to all**). |
+| Remove a sub-folder | Select the rows → **Clear sub-folder**. |
+| Drop a planned folder | Tick it under **New folders** → **Discard checked**. |
+| Skip a series | Untick **Convert** in its row. |
+:::
+
+## 4. Generate {#generate}
 
 ::: steps
-1. Choose **Convert current folder (all)**.
-2. Back in the main window, set the **Output folder** and **Output filename**.
-3. Click **Convert**.
+1. Click **Generate**. If some folders do not exist yet, click **Yes** to create them.
+2. Wait for the progress bar (**Pause** / **Stop** if needed). A *Done* message lists the files written.
 :::
 
-<StepVideo src="" title="Convert one case folder" />
+<StepVideo src="/videos/dicom2nifti/generate.mp4" title="Generate and check the output folders" loop />
 
-## Mode C — Batch select (partial series)
+## Troubleshooting
 
-::: steps
-1. Choose **Batch select (partial)**.
-2. In **Batch Select DICOM Series**, tick the series to export (multiple allowed).
-3. Set the **Output filename** and **Output folder** at the bottom.
-4. Click **OK**.
-:::
-
-![Series selection](/images/dicom2nifti/batch-select-series.png)
-
-<StepVideo src="" title="Convert only selected series" />
+| Problem | What to do |
+| --- | --- |
+| Search finds nothing | Tick the folders in the folder list, and increase **Max depth**. |
+| *Name clash* on Generate | Two rows would write the same file — add sub-folders or change a name / suffix. The **Output file** column shows which rows collide. |
+| One folder gives several rows (`_series1`, `_256x256` …) | The folder holds several series or mixed image sizes. Untick the ones you do not need. |
+| *Create folder failed* | No write permission — choose another save path. |
