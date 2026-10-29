@@ -9,6 +9,7 @@ Step-by-step guides for our lab's research tools — written steps, screenshots 
 | [MOCHA+](https://VV1111.github.io/guidance/mocha/) | Vessel centerline tracing and editing, registration, cross-section contour labeling, centerline comparison |
 | [dicom2nifti](https://VV1111.github.io/guidance/dicom2nifti/) | Converting DICOM folders to NIfTI (`.nii.gz`) |
 | [ITK-SNAP DLS](https://VV1111.github.io/guidance/itksnap-dls/) | AI-assisted segmentation of intracranial arteries and plaque with nnInteractive |
+| [CVA Atlas](https://VV1111.github.io/guidance/cva-atlas/) | The lab's cerebrovascular dataset catalog: connect, sign in, find, shelve, add, undo |
 
 ## Found a mistake?
 

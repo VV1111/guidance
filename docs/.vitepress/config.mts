@@ -37,6 +37,7 @@ export default defineConfig({
       { text: 'MOCHA+', link: '/mocha/' },
       { text: 'dicom2nifti', link: '/dicom2nifti/' },
       { text: 'ITK-SNAP DLS', link: '/itksnap-dls/' },
+      { text: 'CVA Atlas', link: '/cva-atlas/' },
     ],
 
     sidebar: {
@@ -59,6 +60,9 @@ export default defineConfig({
       ],
       '/itksnap-dls/': [
         { text: 'ITK-SNAP DLS', items: [{ text: 'User guide', link: '/itksnap-dls/' }] },
+      ],
+      '/cva-atlas/': [
+        { text: 'CVA Atlas', items: [{ text: 'User guide', link: '/cva-atlas/' }] },
       ],
     },
 

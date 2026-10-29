@@ -32,3 +32,9 @@ Converts DICOM folders to NIfTI (`.nii.gz`). Pick folders, search them for DICOM
 AI-assisted segmentation of intracranial arteries and plaque in ITK-SNAP, with nnInteractive running on the lab GPU server. Paint the plaque ROI, outline the artery, let the AI fill it in 3D.
 
 <p class="meta">ITK-SNAP 4.4 · 1 page</p>
+
+## [CVA Atlas](./cva-atlas/)
+
+The lab's catalog of cerebrovascular imaging datasets. Connect through the SSH tunnel, sign in, find datasets by anatomy, condition, modality and label type, group them on shelves with notes, add your own, undo anything.
+
+<p class="meta">Web app on aiserver3 · 1 page</p>
