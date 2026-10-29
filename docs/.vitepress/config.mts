@@ -61,7 +61,13 @@ export default defineConfig({
         { text: 'dicom2nifti', items: [{ text: 'User guide', link: '/dicom2nifti/' }] },
       ],
       '/itksnap-dls/': [
-        { text: 'ITK-SNAP DLS', items: [{ text: 'User guide', link: '/itksnap-dls/' }] },
+        {
+          text: 'ITK-SNAP DLS',
+          items: [
+            { text: 'User guide', link: '/itksnap-dls/' },
+            { text: 'AI edit modes', link: '/itksnap-dls/edit-modes' },
+          ],
+        },
       ],
       '/cva-atlas/': [
         { text: 'CVA Atlas', items: [{ text: 'User guide', link: '/cva-atlas/' }] },

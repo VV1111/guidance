@@ -120,7 +120,7 @@ Because *Paint over* is **ROI**, the artery is only written inside the ROI.
 ::: details Other situations
 | Situation | What to do |
 | --- | --- |
-| Came back to the artery after editing the ROI | Keep **Refine** — the existing artery is protected. |
+| Came back to the artery after painting the ROI by hand | Still the same round: **Refine** does not protect the earlier AI result. If it must not shrink, use **Add** — see [AI edit modes](./edit-modes). |
 | Want to redo the artery from scratch | Switch to **Replace**, or delete the artery label first. |
 | *No voxels updated* after accept | Check **Active label**, and that the ROI is painted there (Paint over = ROI). |
 | ● is red | Server not reachable — see [step 2](#connect) and [Troubleshooting](#troubleshooting). |
@@ -147,11 +147,11 @@ nnInteractive returns the *whole* structure after every outline. Original ITK-SN
 
 | Mode | The AI may… | Use |
 | --- | --- | --- |
-| **Refine (erase own only)** | add, and remove only what it added since you selected this label | **Default — almost always** |
+| **Refine (erase own only)** | add, and remove only what it added in the current round | **Default — almost always** |
 | **Add (never erase)** | only add | Filling gaps when nothing may shrink |
 | **Replace (original)** | replace the label with its latest prediction | Redrawing an artery from scratch |
 
-A new "AI object" starts when you change the **active label** or load another image; from then on, **Refine** protects everything the label already had.
+A new round starts only when you use the AI with a different label than last time, or load another image; from then on, **Refine** protects everything the label already had. Switching labels to paint by hand does not start a new round. For exactly what each mode keeps and erases, see [AI edit modes](./edit-modes).
 
 ## Own computer (mode B) {#mode-b}
 
