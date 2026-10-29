@@ -6,11 +6,7 @@ MOCHA traces and edits vessel centerlines on 3D images (TOF-MRA, vessel wall ima
 
 <StepVideo src="/videos/mocha/quick-look.mp4" title="Open DICOMs → register → trace → cross-sections → save, at 6× speed" loop />
 
-## Location
-|version | Server |location|
-| --- | --- | --- |
-| MOCHA v3.0.5 | 39 | G:\zhiwei\projects\tool\MOCHA_GUI\output|
-| MOCHA v3.0.5 | 46 | D:\Zhiwei\tool|
+Where to find MOCHA+ on the lab servers, and what changed between versions: [Versions & location](./versions).
 
 ## Typical workflow
 

@@ -46,6 +46,7 @@ export default defineConfig({
           text: 'MOCHA+',
           items: [
             { text: 'Overview', link: '/mocha/' },
+            { text: 'Versions & location', link: '/mocha/versions' },
             { text: 'Loading data', link: '/mocha/loading' },
             { text: 'Preprocess: DICOM → NIfTI & registration', link: '/mocha/preprocess' },
             { text: '3D tracing', link: '/mocha/3d-tracing' },
