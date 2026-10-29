@@ -66,6 +66,8 @@ export default defineConfig({
           items: [
             { text: 'User guide', link: '/itksnap-dls/' },
             { text: 'AI edit modes', link: '/itksnap-dls/edit-modes' },
+            { text: 'Install & setup', link: '/itksnap-dls/install' },
+            { text: 'Server admin notes', link: '/itksnap-dls/server-admin' },
           ],
         },
       ],
