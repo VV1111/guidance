@@ -18,7 +18,7 @@ Download the package for your system from the [Releases page](https://github.com
 | System | File | Install |
 | --- | --- | --- |
 | Windows 10/11 | `…-win64-AMD64.exe` | Run the installer. Pick its own folder (e.g. `C:\Program Files\ITK-SNAP 4.4 DLS`) so it does not replace another ITK-SNAP. |
-| Mac with Apple silicon (M1–M4) | `…-Darwin-arm64.dmg` | Open the `.dmg` and drag **ITK-SNAP** into **Applications**. See the note below. |
+| Mac with Apple silicon (M1–M4), macOS 14 or newer | `…-Darwin-arm64.dmg` | Open the `.dmg` and drag **ITK-SNAP** into **Applications**. See the note below. |
 | Mac with Intel | No ready-made package | Build one yourself — see [Build from the GitHub code](#build). |
 | Ubuntu 24.04 or newer | `…-Linux-x86_64.tar.gz` | `sudo apt install libssh-4 libcurl4 libxcb-cursor0`, extract the archive, run `bin/itksnap`. |
 
@@ -49,13 +49,13 @@ The repository has two branches:
 
 ::: steps
 1. Sign in to GitHub and **Fork** [VV1111/itksnap-custom](https://github.com/VV1111/itksnap-custom).
-2. For an Intel Mac: in your fork, edit `.github/workflows/build.yml` and add `macos-15-intel` to the `os:` list (the settings for it are already in the file). Commit the change to `feature/dls-edit-mode`.
+2. For an Intel Mac: in your fork, edit `.github/workflows/build.yml` and uncomment the four `macos-15-intel` lines under `include:`. Commit the change to `feature/dls-edit-mode`.
 3. Open the **Actions** tab of your fork, enable workflows if asked, select **Build custom ITK-SNAP**, click **Run workflow** and choose the `feature/dls-edit-mode` branch.
 4. Wait for the run to finish — 1 to 3 hours the first time, while ITK and VTK are compiled; later runs reuse them.
 5. Open the finished run and download the package under **Artifacts**. Artifacts are kept for 90 days.
 :::
 
-To build on your own computer instead, follow the [official build instructions](http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.BuildingITK-SNAP) with ITK 5.4.0, VTK 9.3.1 and Qt 6.8.1.
+To build on your own computer instead, follow the [official build instructions](http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.BuildingITK-SNAP) with ITK 5.4.0, VTK 9.5.2 and Qt 6.8.1.
 
 ## 2. Choose an AI server {#server}
 
