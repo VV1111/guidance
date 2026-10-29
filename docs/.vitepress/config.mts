@@ -52,6 +52,7 @@ export default defineConfig({
             { text: '2D MPR editing', link: '/mocha/2d-editing' },
             { text: 'Contour labeling', link: '/mocha/contour-labeling' },
             { text: 'Compare centerlines', link: '/mocha/compare' },
+            { text: 'DCE analysis', link: '/mocha/dce' },
           ],
         },
       ],
