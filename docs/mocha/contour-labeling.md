@@ -42,6 +42,25 @@ With **draw** off:
 | Copy it to another slice | `Ctrl` + `C`, go to the slice, `Ctrl` + `V` |
 | Undo / redo | `Ctrl` + `Z` / `Ctrl` + `Y` |
 
+## Label another vessel {#another-vessel}
+
+Each vessel gets its own folder under `xsec/`. To add one after the first is done:
+
+::: steps
+1. **save** (`Ctrl` + `S`) the current vessel — pressing **Cross** again does not ask.
+2. Switch to the **3D Tracing** tab and set **CENTERLINE** to **New**.
+3. Trace the new vessel, e.g. with **Draw points: 3D** (see [3D tracing](./3d-tracing#create)). When you turn **3D** off, the new segment is selected (white).
+4. Click **Cross** (tick the sequences if asked).
+5. *Contour Labeling* opens on the new vessel. Its folder is added to **Same-level folders** and highlighted, next to the earlier ones. Label it as above and **save**.
+:::
+
+![Contour Labeling after Cross on a second vessel: a fourth folder is highlighted in Same-level folders](/images/mocha/new-vessel-folder.png)
+*The new vessel's folder (highlighted) and its full path at the top.*
+
+To go back to an earlier vessel, **double-click** its folder in **Same-level folders**.
+
+<StepVideo src="/videos/mocha/add-vessel.mp4" title="Save → 3D Tracing → New → trace → Cross → new folder, at 2× speed" loop />
+
 ::: details Other controls and shortcuts
 | Control | What it does |
 | --- | --- |
