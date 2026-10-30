@@ -1,12 +1,12 @@
 # Install & setup
 
-How to install the custom ITK-SNAP on Windows, macOS or Ubuntu, and how to connect it to an nnInteractive AI server. For daily use, see the [user guide](./).
+How to install the custom ITK-SNAP and connect it to an nnInteractive AI server. For daily use, see the [user guide](./).
 
 ## What you need
 
 | Part | Runs on | Purpose |
 | --- | --- | --- |
-| **Custom ITK-SNAP** | The computer you segment on — Windows, macOS or Ubuntu | The viewer, with the extra [AI edit modes](./edit-modes) |
+| **Custom ITK-SNAP** | The computer you segment on — Windows (tested) | The viewer, with the extra [AI edit modes](./edit-modes) |
 | **AI server** (itksnap-dls + nnInteractive) | A computer with an **NVIDIA GPU** — Windows or Linux | Computes the AI segmentation |
 
 The custom build only changes ITK-SNAP. Any standard itksnap-dls server works with it, and the AI edit mode buttons need nothing on the server side.
@@ -18,27 +18,17 @@ Download the package for your system from the [Releases page](https://github.com
 | System | File | Install |
 | --- | --- | --- |
 | Windows 10/11 | `…-win64-AMD64.exe` | Run the installer. Pick its own folder (e.g. `C:\Program Files\ITK-SNAP 4.4 DLS`) so it does not replace another ITK-SNAP. |
-| Mac with Apple silicon (M1–M4), macOS 14 or newer | `…-Darwin-arm64.dmg` | Open the `.dmg` and drag **ITK-SNAP** into **Applications**. See the note below. |
-| Mac with Intel | No ready-made package | Build one yourself — see [Build from the GitHub code](#build). |
-| Ubuntu 24.04 or newer | `…-Linux-x86_64.tar.gz` | `sudo apt install libssh-4 libcurl4 libxcb-cursor0`, extract the archive, run `bin/itksnap`. |
+| Ubuntu 24.04 or newer (not yet tested) | `…-Linux-x86_64.tar.gz` | `sudo apt install libssh-4 libcurl4 libxcb-cursor0`, extract the archive, run `bin/itksnap`. |
 
-::: tip Which Mac do I have?
-Apple menu → **About This Mac**. "Chip Apple M…" means Apple silicon; "Processor Intel…" means Intel.
-:::
-
-::: warning macOS: first launch is blocked
-The macOS packages are not signed with an Apple developer certificate, so macOS refuses to open them at first. In **Applications**, right-click **ITK-SNAP → Open → Open** once. Or run in Terminal:
-
-```bash
-xattr -dr com.apple.quarantine /Applications/ITK-SNAP.app
-```
+::: warning Tested platforms
+So far only the **Windows** package has been tested successfully. A macOS package is built, but it does not open yet because of Apple's security assessment of apps that are not signed and notarized, so it is not offered for now.
 :::
 
 The interface is in **English** by default. 
 
 ### Build from the GitHub code {#build}
 
-Only needed for a system without a ready-made package (Intel Mac), or to build your own copy. GitHub builds it for you; nothing has to be installed locally.
+Only needed to build your own copy. GitHub builds it for you; nothing has to be installed locally.
 
 The repository has two branches:
 
@@ -49,10 +39,9 @@ The repository has two branches:
 
 ::: steps
 1. Sign in to GitHub and **Fork** [VV1111/itksnap-custom](https://github.com/VV1111/itksnap-custom).
-2. For an Intel Mac: in your fork, edit `.github/workflows/build.yml` and uncomment the four `macos-15-intel` lines under `include:`. Commit the change to `feature/dls-edit-mode`.
-3. Open the **Actions** tab of your fork, enable workflows if asked, select **Build custom ITK-SNAP**, click **Run workflow** and choose the `feature/dls-edit-mode` branch.
-4. Wait for the run to finish — 1 to 3 hours the first time, while ITK and VTK are compiled; later runs reuse them.
-5. Open the finished run and download the package under **Artifacts**. Artifacts are kept for 90 days.
+2. Open the **Actions** tab of your fork, enable workflows if asked, select **Build custom ITK-SNAP**, click **Run workflow** and choose the `feature/dls-edit-mode` branch.
+3. Wait for the run to finish — 1 to 3 hours the first time, while ITK and VTK are compiled; later runs reuse them.
+4. Open the finished run and download the package under **Artifacts**. Artifacts are kept for 90 days.
 :::
 
 To build on your own computer instead, follow the [official build instructions](http://www.itksnap.org/pmwiki/pmwiki.php?n=Documentation.BuildingITK-SNAP) with ITK 5.4.0, VTK 9.5.2 and Qt 6.8.1.
@@ -156,7 +145,6 @@ The *Local computer* option in AI Extensions can install itksnap-dls for you, bu
 
 | Problem | Fix |
 | --- | --- |
-| macOS: "cannot be opened because the developer cannot be verified" | Right-click → **Open**, or run the `xattr` command above. |
 | Ubuntu: ITK-SNAP does not start, a library is missing | Install `libssh-4 libcurl4 libxcb-cursor0`. Ubuntu older than 24.04 is not supported by this package. |
 | Server prints `No GPU available, using CPU` | PyTorch is a CPU build. Repeat step 2 of Option B. |
 | `307 Temporary Redirect` when the server starts a session | The model was not downloaded beforehand, or offline mode is off. Repeat steps 4–5. |
