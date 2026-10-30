@@ -33,3 +33,9 @@ The version these guides are written for. Features:
 - **Contour labeling** of lumen, outer wall and calcification on cross-sections ([Contour labeling](./contour-labeling))
 - **Compare centerlines** ([Compare centerlines](./compare))
 - **DCE analysis** — vp / Ktrans maps with the Patlak model (*Analysis → DCE*) ([DCE analysis](./dce))
+
+#### Debug log
+
+| Date | Action | Record | Cause | Fix |
+| --- | --- | --- | --- | --- |
+| 2026-10-30 | Debug | DCE loading | Exported DICOMs (e.g. from VTS) have no *TemporalPositionIdentifier*, so frames could not be sorted and *Open DCE Image* failed with *DCE Load Error*. | When the tag is missing, each slice's images are ordered by *AcquisitionTime* (then *InstanceNumber*). Also: *SliceLocation* is rounded before grouping, and the Z spacing is the real distance between slices. |
