@@ -34,7 +34,7 @@ xattr -dr com.apple.quarantine /Applications/ITK-SNAP.app
 ```
 :::
 
-The interface is in **English** by default. Start ITK-SNAP with `--lang zh_CN` (or another language code) to use a translation.
+The interface is in **English** by default. 
 
 ### Build from the GitHub code {#build}
 
