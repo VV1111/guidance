@@ -58,7 +58,13 @@ export default defineConfig({
         },
       ],
       '/dicom2nifti/': [
-        { text: 'dicom2nifti', items: [{ text: 'User guide', link: '/dicom2nifti/' }] },
+        {
+          text: 'dicom2nifti',
+          items: [
+            { text: 'User guide', link: '/dicom2nifti/' },
+            { text: 'Versions & location', link: '/dicom2nifti/versions' },
+          ],
+        },
       ],
       '/itksnap-dls/': [
         {
