@@ -103,10 +103,27 @@ Requirements: NVIDIA GPU with an up-to-date driver, Python 3.10 or newer, about 
 
 5. Start the server in offline mode, so it uses the downloaded model and does not go online again.
 
+   **Linux**
+
    ```bash
-   HF_HUB_OFFLINE=1 python -m itksnap_dls -m models                  # Linux
-   set HF_HUB_OFFLINE=1 && python -m itksnap_dls -m models           # Windows (cmd)
+   HF_HUB_OFFLINE=1 python -m itksnap_dls -m models
    ```
+
+   **Windows (cmd)**
+
+   ```bat
+   set "HF_HUB_OFFLINE=1"
+   python -m itksnap_dls -m models
+   ```
+
+   **Windows (PowerShell)**
+
+   ```powershell
+   $env:HF_HUB_OFFLINE = "1"
+   python -m itksnap_dls -m models
+   ```
+
+   In cmd, keep the quotes: `set HF_HUB_OFFLINE=1 && …` stores `1 ` with a trailing space, which turns offline mode off.
 
 6. Check the output: `Using GPU 0: <your GPU>` and `Application startup complete`. The server listens on port **8911**.
 :::
